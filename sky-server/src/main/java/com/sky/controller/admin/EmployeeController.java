@@ -74,12 +74,12 @@ public class EmployeeController {
 
     @PostMapping
     @ApiOperation("新增员工")
-    public Result<String> register(@RequestBody EmployeeDTO employeedto) {
+    public Result register(@RequestBody EmployeeDTO employeedto) {
         log.info("新增员工{}", employeedto);
 
         employeeService.register(employeedto);
 
-        return null;
+        return Result.success();
     }
 
     @GetMapping("/page")

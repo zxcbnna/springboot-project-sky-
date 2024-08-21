@@ -5,6 +5,8 @@ import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface EmployeeService {
 
@@ -18,5 +20,7 @@ public interface EmployeeService {
     public void register(EmployeeDTO employeedto);
 
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    public void enableOrDisable(Integer status, Long id);
 
 }

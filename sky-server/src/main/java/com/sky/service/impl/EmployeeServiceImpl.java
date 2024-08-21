@@ -101,4 +101,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    @Override
+    public void enableOrDisable(Integer status, Long id) {
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        employeeMapper.update(employee);
+    }
+
 }

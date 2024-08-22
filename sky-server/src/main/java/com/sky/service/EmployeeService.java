@@ -23,4 +23,8 @@ public interface EmployeeService {
 
     public void enableOrDisable(Integer status, Long id);
 
+    public Employee getEmployeeById(Long id);
+
+    public void update(EmployeeDTO employeeDTO);
+
 }

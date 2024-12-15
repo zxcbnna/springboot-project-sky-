@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -35,7 +36,7 @@ public class DishController {
 
     @GetMapping("/page")
     @ApiOperation("分页查询菜品")
-    public Result<PageResult> page(@RequestBody DishPageQueryDTO dishPageQueryDTO) {
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO) {
         log.info("查询菜品：{}", dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
 
@@ -43,7 +44,7 @@ public class DishController {
         return Result.success(pageResult);
     }
 
-    @DeleteMapping("/page")
+    @DeleteMapping
     @ApiOperation("删除菜品")
     public Result delete(@RequestParam List<Long> ids) {
         log.info("删除菜品：{}", ids);
@@ -73,6 +74,26 @@ public class DishController {
 
 
         return Result.success();
+    }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用或禁用菜品")
+    public Result enableOrDisable(@PathVariable("status") Integer status, Long id) {
+        log.info("启用禁用菜品{} {}", status,id);
+        dishService.enableOrDisable(status,id);
+
+        return Result.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> getByCategoryId(@RequestParam Long id) {
+        log.info("根据分类id查询菜品：{}", id);
+
+        List<Dish> result = dishService.getByCategoryId(id);
+
+
+        return Result.success(result);
     }
 
 }

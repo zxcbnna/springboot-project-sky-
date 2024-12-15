@@ -63,7 +63,7 @@ public class DishServiceImpl implements DishService {
         }
         List<Long> SetmealIds = setmealDishMapper.getSetmealIdsByIds(ids);
         if(SetmealIds!=null&&SetmealIds.size()>0){
-            throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
 
         for(Long id :ids){
@@ -97,6 +97,20 @@ public class DishServiceImpl implements DishService {
             flavors.forEach(dishFlavor -> dishFlavor.setDishId(dishdto.getId()));
             dishFlavorMapper.insertBatch(flavors);
         }
+    }
+
+    public void enableOrDisable(Integer status, Long id){
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
+    }
+
+    public List<Dish> getByCategoryId(Long id){
+        List<Dish> result = dishMapper.getByCategoryId(id);
+
+        return result;
     }
 
 }
